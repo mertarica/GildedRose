@@ -14,6 +14,22 @@ export class GildedRose {
   items: Array<Item>;
 
   constructor(items = [] as Array<Item>) {
+    if (items.some((item) => item.quality < 0))
+      throw new Error("You cannot add negative quality");
+    if (
+      items.some(
+        (item) =>
+          item.name !== "Sulfuras, Hand of Ragnaros" && item.quality > 50
+      )
+    )
+      throw new Error("You cannot add any quality value bigger than 50 for items");
+    if (
+      items.some(
+        (item) =>
+          item.name === "Sulfuras, Hand of Ragnaros" && item.quality !== 80
+      )
+    )
+      throw new Error("You cannot add any quality value other than 80 for sulfuras");
     this.items = items;
   }
 
