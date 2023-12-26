@@ -9,8 +9,7 @@
     "test:jest": "jest",
     "test:jest:watch": "jest --watchAll",
     "test:mocha": "nyc mocha",
-    "test:vitest": "vitest --coverage",
-    "start": "npx ts-node App.ts"
+    "test:vitest": "vitest --coverage"
   },
   "license": "MIT",
   "private": true,
