@@ -1,6 +1,6 @@
 import { Item, GildedRose } from "@/gilded-rose";
 
-describe("Constructor Tests", () => {
+describe("constructor tests", () => {
   it("should add new item", () => {
     const inventory = new GildedRose([new Item("foo", 0, 0)]);
     const item = inventory.items[0];
