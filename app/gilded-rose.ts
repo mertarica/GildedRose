@@ -1,3 +1,4 @@
+import { UpdateItem } from "./update-item";
 export class Item {
   name: string;
   sellIn: number;
@@ -22,68 +23,43 @@ export class GildedRose {
           item.name !== "Sulfuras, Hand of Ragnaros" && item.quality > 50
       )
     )
-      throw new Error("You cannot add any quality value bigger than 50 for items");
+      throw new Error(
+        "You cannot add any quality value bigger than 50 for items"
+      );
     if (
       items.some(
         (item) =>
           item.name === "Sulfuras, Hand of Ragnaros" && item.quality !== 80
       )
     )
-      throw new Error("You cannot add any quality value other than 80 for sulfuras");
+      throw new Error(
+        "You cannot add any quality value other than 80 for sulfuras"
+      );
     this.items = items;
   }
 
   updateQuality() {
-    for (let i = 0; i < this.items.length; i++) {
-      if (
-        this.items[i].name != "Aged Brie" &&
-        this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
-      ) {
-        if (this.items[i].quality > 0) {
-          if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-            this.items[i].quality = this.items[i].quality - 1;
-          }
+    for (const item of this.items) {
+      const updateItem = new UpdateItem();
+      switch (item.name) {
+        case "Aged Brie": {
+          updateItem.agedBrie(item);
+          break;
         }
-      } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
-          if (
-            this.items[i].name == "Backstage passes to a TAFKAL80ETC concert"
-          ) {
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
-          }
+        case "Backstage passes to a TAFKAL80ETC concert": {
+          updateItem.backstagePasses(item);
+          break;
         }
-      }
-      if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
-      }
-      if (this.items[i].sellIn < 0) {
-        if (this.items[i].name != "Aged Brie") {
-          if (
-            this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
-          ) {
-            if (this.items[i].quality > 0) {
-              if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-                this.items[i].quality = this.items[i].quality - 1;
-              }
-            }
-          } else {
-            this.items[i].quality =
-              this.items[i].quality - this.items[i].quality;
-          }
-        } else {
-          if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1;
-          }
+        case "Conjured Mana Cake": {
+          updateItem.conjured(item);
+          break;
+        }
+        case "Sulfuras, Hand of Ragnaros": {
+          updateItem.sulfuras(item);
+          break;
+        }
+        default: {
+          updateItem.ordinaryItem(item);
         }
       }
     }
