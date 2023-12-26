@@ -207,30 +207,30 @@ describe("backstage pass exceptions", () => {
 
 describe("conjured exceptions", () => {
   it("should lost 2 units of quality daily", () => {
-    const conjured = new Item("Conjured", 5, 10);
+    const conjured = new Item("Conjured Mana Cake", 10, 5);
     const inventory = new GildedRose([conjured]);
     inventory.updateQuality();
 
-    expect(conjured.quality).toBe(4);
-    expect(conjured.sellIn).toBe(8);
+    expect(conjured.sellIn).toBe(9);
+    expect(conjured.quality).toBe(3);
   });
 
   it("should lost 4 units of quality daily for negative sellIn", () => {
-    const conjured = new Item("Conjured", 0, 10);
+    const conjured = new Item("Conjured Mana Cake", 0, 10);
     const inventory = new GildedRose([conjured]);
     inventory.updateQuality();
 
-    expect(conjured.quality).toBe(0);
-    expect(conjured.sellIn).toBe(6);
+    expect(conjured.sellIn).toBe(-1);
+    expect(conjured.quality).toBe(6);
   });
 
   it("should quality be minimum 0", () => {
-    const conjured = new Item("Conjured", 0, 2);
+    const conjured = new Item("Conjured Mana Cake", 0, 1);
     const inventory = new GildedRose([conjured]);
     inventory.updateQuality();
 
-    expect(conjured.quality).toBe(0);
     expect(conjured.sellIn).toBe(-1);
+    expect(conjured.quality).toBe(0);
   });
 });
 
