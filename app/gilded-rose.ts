@@ -13,6 +13,7 @@ export class Item {
 
 export class GildedRose {
   items: Array<Item>;
+  updateItem: UpdateItem;
 
   constructor(items = [] as Array<Item>) {
     if (items.some((item) => item.quality < 0))
@@ -36,30 +37,30 @@ export class GildedRose {
         "You cannot add any quality value other than 80 for sulfuras"
       );
     this.items = items;
+    this.updateItem = new UpdateItem();
   }
 
   updateQuality() {
     for (const item of this.items) {
-      const updateItem = new UpdateItem();
       switch (item.name) {
         case "Aged Brie": {
-          updateItem.agedBrie(item);
+          this.updateItem.agedBrie(item);
           break;
         }
         case "Backstage passes to a TAFKAL80ETC concert": {
-          updateItem.backstagePasses(item);
+          this.updateItem.backstagePasses(item);
           break;
         }
         case "Conjured Mana Cake": {
-          updateItem.conjured(item);
+          this.updateItem.conjured(item);
           break;
         }
         case "Sulfuras, Hand of Ragnaros": {
-          updateItem.sulfuras(item);
+          this.updateItem.sulfuras(item);
           break;
         }
         default: {
-          updateItem.ordinaryItem(item);
+          this.updateItem.ordinaryItem(item);
         }
       }
     }
